@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 @Table(name = "employee")
 public class Employee {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "emp_id", nullable = false)
     private Long empId;
 

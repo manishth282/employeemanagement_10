@@ -31,7 +31,7 @@ public class EmployeeServiceImp implements EmployeeService {
 
     @Override
     public EmployeeSuccessResponse createEmployee(EmployeeDto employeeDto) throws EmployeeExistsException {
-
+        //Validation for Employee ID available or not
         employeeRepository.findById(employeeDto.getEmpId())
                 .ifPresent(emp -> {
                     throw new EmployeeExistsException(
@@ -42,6 +42,15 @@ public class EmployeeServiceImp implements EmployeeService {
                             )
                     );
                 });
+        //Validation for mobile number should be unique
+        if(employeeRepository.findByPhone(employeeDto.getPhone()).isPresent()){
+            throw new EmployeeExistsException(
+                    messageSource.getMessage(
+                            "EXCEPTION_EMPLOYEE_EXISTS_PHONE",
+                            null,
+                            LocaleContextHolder.getLocale()
+                    ));
+        }
 
         Employee employee = convertToEntity(employeeDto);
         employeeRepository.save(employee);

@@ -21,6 +21,7 @@ public class EmployeeController {
 
     @PostMapping("/createEmployee")
     public ResponseEntity<EmployeeSuccessResponse> crateEmployee(@RequestBody @Valid EmployeeDto employeeDto) throws EmployeeExistsException {
+        System.err.println(employeeDto.getEmpId()+" "+employeeDto.getEmpName());
 
         EmployeeSuccessResponse response = employeeService.createEmployee(employeeDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
